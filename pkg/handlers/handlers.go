@@ -49,3 +49,19 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 		StringMap: stringMap,
 	})
 }
+
+func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "contact.page.tmpl.html", nil)
+}
+
+func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "reservation.page.tmpl.html", nil)
+}
+
+func (m *Repository) RoomsMajorsSuite(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "majors-suite.page.tmpl.html", nil)
+}
+
+func (m *Repository) RoomsGeneralsQuarters(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "generals-quarters.page.tmpl.html", nil)
+}
