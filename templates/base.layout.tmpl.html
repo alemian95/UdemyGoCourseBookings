@@ -57,7 +57,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/make-reservation">Book Now</a>
+                        <a class="nav-link" href="/search-availability">Book Now</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>
@@ -105,14 +105,8 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
-            const elem = document.getElementById('reservation-datepicker-old');
-            const rangepicker = new DateRangePicker(elem, {
-                format: "yyyy-mm-dd"
-            });
 
-            let attention = Prompt();
-
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            // Base js for form validation
             (function () {
                 'use strict'
 
@@ -132,7 +126,6 @@
                         }, false)
                     })
             })()
-
 
             function notify(msg, type = "success") {
                 notie.alert({
@@ -253,12 +246,10 @@
                 }
 
             }
+            let attention = Prompt();
 
+            if (document.getElementById("reservation-button"))
             document.getElementById("reservation-button").addEventListener("click", function (event) {
-                // notifyModal("title", "<em>Hello World</em>", "success", "btn text")
-                // attention.toast({ msg: "Hello World", icon: "error" });
-                // attention.error({ msg: "You did it!", title: "Message for you", footer: "This is a message" })
-
                 let html = `
                     <form id="check-availability-form" novalidate method="post" action="" class="needs-validation">
                         <div class="row" id="reservation-datepicker">
@@ -271,9 +262,7 @@
                         </div>
                     </form>
                 `;
-
                 attention.custom({ msg: html})
-
             })
 
         </script>
