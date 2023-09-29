@@ -16,18 +16,13 @@
         <!-- Notie -->
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
 
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="/static/css/styles.css">
+        
         <style>
-            .my-footer {
-                height: 5em;
-                padding: 1em;
-                margin-top: 1em;
-                background-color: #3e3e3e;
-                color: white;
-                font-size: 80%;
-            }
-
-            .notie-container {
-                box-shadow: none;
+            .btn-secondary {
+                color: aqua;
+                background: slateblue;
             }
         </style>
     
@@ -110,7 +105,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
-            const elem = document.getElementById('reservation-datepicker');
+            const elem = document.getElementById('reservation-datepicker-old');
             const rangepicker = new DateRangePicker(elem, {
                 format: "yyyy-mm-dd"
             });
@@ -214,10 +209,47 @@
                     })
                 }
 
+                let custom = async function custom(c) {
+                    const {
+                        msg = "",
+                        title = "",
+                    } = c;
+
+                    const { value: formValues } = await Swal.fire({
+                        title: title,
+                        html: msg,
+                        backdrop: false,
+                        focusConfirm: false,
+                        showCancelButton: true,
+                        preConfirm: () => {
+                            return [
+                                document.getElementById('start').value,
+                                document.getElementById('end').value
+                            ]
+                        },
+                        willOpen: () => {
+                            const elem = document.getElementById('reservation-datepicker');
+                            const rangepicker = new DateRangePicker(elem, {
+                                format: "yyyy-mm-dd",
+                                showOnFocus: true,
+                                orientation: "top",
+                            });
+                        },
+                        didOpen: () => {
+                            document.querySelectorAll("#reservation-datepicker input").forEach(e => e.removeAttribute("disabled"));
+                        }
+                    })
+
+                    if (formValues) {
+                        Swal.fire(JSON.stringify(formValues))
+                    }
+                }
+
                 return {
                     toast: toast,
                     success: success,
                     error: error,
+                    custom, custom,
                 }
 
             }
@@ -225,7 +257,23 @@
             document.getElementById("reservation-button").addEventListener("click", function (event) {
                 // notifyModal("title", "<em>Hello World</em>", "success", "btn text")
                 // attention.toast({ msg: "Hello World", icon: "error" });
-                attention.error({ msg: "You did it!", title: "Message for you", footer: "This is a message" })
+                // attention.error({ msg: "You did it!", title: "Message for you", footer: "This is a message" })
+
+                let html = `
+                    <form id="check-availability-form" novalidate method="post" action="" class="needs-validation">
+                        <div class="row" id="reservation-datepicker">
+                            <div class="col-md-4">
+                                <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+                            </div>
+                            <div class="col-md-4">
+                                <input disabled required class="form-control" type="text" name="end" id="staendrt" placeholder="Departure">
+                            </div>
+                        </div>
+                    </form>
+                `;
+
+                attention.custom({ msg: html})
+
             })
 
         </script>
