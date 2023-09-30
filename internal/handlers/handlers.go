@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
-	"github.com/alemian95/go-bookings/pkg/config"
-	"github.com/alemian95/go-bookings/pkg/models"
-	"github.com/alemian95/go-bookings/pkg/render"
+	"github.com/alemian95/go-bookings/internal/config"
+	"github.com/alemian95/go-bookings/internal/models"
+	"github.com/alemian95/go-bookings/internal/render"
 )
 
 // Repo is the repository used by the handlers
@@ -65,6 +67,27 @@ func (m *Repository) PostSearchAvailability(w http.ResponseWriter, r *http.Reque
 	end := r.Form.Get("end")
 
 	w.Write([]byte(fmt.Sprintf("start date is %s and end date is %s", start, end)))
+}
+
+type AvailabilityJsonResponse struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
+func (m *Repository) JsonSearchAvailability(w http.ResponseWriter, r *http.Request) {
+	response := AvailabilityJsonResponse{
+		OK:      true,
+		Message: "Available!",
+	}
+
+	out, err := json.MarshalIndent(response, "", "  ")
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println(string(out))
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(out)
 }
 
 func (m *Repository) RoomsMajorsSuite(w http.ResponseWriter, r *http.Request) {
