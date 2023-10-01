@@ -1,4 +1,4 @@
-module github.com/alemian95/go-bookings
+module github.com/alemian95/UdemyGoCourseBookings
 
 go 1.21.1
 

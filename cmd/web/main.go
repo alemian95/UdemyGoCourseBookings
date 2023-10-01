@@ -1,14 +1,16 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/alemian95/go-bookings/internal/config"
-	"github.com/alemian95/go-bookings/internal/handlers"
-	"github.com/alemian95/go-bookings/internal/render"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/config"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/handlers"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/models"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/render"
 	"github.com/alexedwards/scs/v2"
 )
 
@@ -19,6 +21,8 @@ var session *scs.SessionManager
 
 // main is the main application function
 func main() {
+	// what am i going to put in the session
+	gob.Register(models.Reservation{})
 
 	// change thos to true when in production
 	app.InProduction = false

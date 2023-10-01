@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/alemian95/go-bookings/internal/config"
-	"github.com/alemian95/go-bookings/internal/models"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/config"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/models"
 	"github.com/justinas/nosurf"
 )
 
@@ -20,6 +20,9 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.Flash = app.Session.PopString(r.Context(), "flash")
+	td.Error = app.Session.PopString(r.Context(), "error")
+	td.Warning = app.Session.PopString(r.Context(), "warning")
 	td.CSRFToken = nosurf.Token(r)
 	return td
 }

@@ -6,3 +6,6 @@ This is the repository for the Udemy Go course project Bookings and Reservations
 - Uses the [chi router](https://github.com/go-chi/chi/v5)
 - Uses [alex edwards SCS](https://github.com/alexedwards/scs/v2) session managment
 - Uses [nosurf](https://github.com/justinas/nosurf)
+
+## Alternative template engine
+[jet](https://github.com/CloudyKit/jet)

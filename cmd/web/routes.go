@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/alemian95/go-bookings/internal/config"
-	"github.com/alemian95/go-bookings/internal/handlers"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/config"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -25,6 +25,7 @@ func routes(app *config.AppConfig) http.Handler {
 
 	mux.Get("/make-reservation", handlers.Repo.Reservation)
 	mux.Post("/make-reservation", handlers.Repo.PostReservation)
+	mux.Get("/reservation-summary", handlers.Repo.ReservationSummary)
 
 	mux.Get("/rooms/generals-quarters", handlers.Repo.RoomsGeneralsQuarters)
 	mux.Get("/rooms/majors-suite", handlers.Repo.RoomsMajorsSuite)

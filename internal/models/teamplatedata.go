@@ -1,6 +1,6 @@
 package models
 
-import "github.com/alemian95/go-bookings/internal/forms"
+import "github.com/alemian95/UdemyGoCourseBookings/internal/forms"
 
 // TemplateData holds data sent from handlers to template
 type TemplateData struct {

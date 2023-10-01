@@ -14,3 +14,7 @@
 .datepicker-picker {
     z-index: 9999999;
 }
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+}
