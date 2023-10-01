@@ -1,0 +1,10 @@
+mode: set
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/main.go:23.13,26.16 2 0
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/main.go:26.16,28.3 1 0
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/main.go:30.2,38.16 4 0
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/main.go:41.18,58.21 10 1
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/main.go:58.21,60.3 1 0
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/main.go:62.2,69.12 6 1
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/middleware.go:10.45,20.2 3 1
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/middleware.go:23.50,25.2 1 1
+github.com/alemian95/UdemyGoCourseBookings/cmd/web/routes.go:12.49,37.2 18 1
