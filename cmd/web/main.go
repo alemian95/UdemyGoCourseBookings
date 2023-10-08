@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/alemian95/UdemyGoCourseBookings/internal/config"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/handlers"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/helpers"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/models"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/render"
 	"github.com/alexedwards/scs/v2"
@@ -18,6 +20,8 @@ const port = ":8081"
 
 var app config.AppConfig
 var session *scs.SessionManager
+var infoLog *log.Logger
+var errorLog *log.Logger
 
 // main is the main application function
 func main() {
@@ -46,6 +50,12 @@ func run() error {
 	// change thos to true when in production
 	app.InProduction = false
 
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog = log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
+
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
@@ -65,6 +75,7 @@ func run() error {
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
 	render.NewTemplates(&app)
+	helpers.NewHelpers(&app)
 
 	return nil
 }
