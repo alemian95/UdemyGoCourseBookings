@@ -7,10 +7,13 @@ import (
 	"net/http"
 
 	"github.com/alemian95/UdemyGoCourseBookings/internal/config"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/driver"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/forms"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/helpers"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/models"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/render"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/repository"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/repository/dbrepo"
 )
 
 // Repo is the repository used by the handlers
@@ -19,12 +22,14 @@ var Repo *Repository
 // Repository is the repository type
 type Repository struct {
 	App *config.AppConfig
+	DB  repository.DatabaseRepo
 }
 
 // NewRepo creates a new repository
-func NewRepo(a *config.AppConfig) *Repository {
+func NewRepo(a *config.AppConfig, db *driver.DB) *Repository {
 	return &Repository{
 		App: a,
+		DB:  dbrepo.NewPostgresRepo(db.SQL, a),
 	}
 }
 

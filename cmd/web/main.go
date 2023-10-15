@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/alemian95/UdemyGoCourseBookings/internal/config"
+	"github.com/alemian95/UdemyGoCourseBookings/internal/driver"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/handlers"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/helpers"
 	"github.com/alemian95/UdemyGoCourseBookings/internal/models"
@@ -26,10 +27,11 @@ var errorLog *log.Logger
 // main is the main application function
 func main() {
 
-	err := run()
+	db, err := run()
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.SQL.Close()
 
 	fmt.Printf("Starting application on port %s\n", port)
 
@@ -42,7 +44,7 @@ func main() {
 	log.Fatal(err)
 }
 
-func run() error {
+func run() (*driver.DB, error) {
 
 	// what am i going to put in the session
 	gob.Register(models.Reservation{})
@@ -64,18 +66,32 @@ func run() error {
 
 	app.Session = session
 
+	// connect to database
+	log.Println("Connecting to database...")
+	db, err := driver.ConnectSQL("host=localhost port=5432 database=django_template_db user=example password=example")
+	if err != nil {
+		log.Fatal("Cannot connect to database! Dying...")
+	}
+	log.Println("Connected to database!")
+
+	err = db.SQL.Ping()
+	if err != nil {
+		log.Fatal("Cannot ping database! Dying...")
+	}
+	log.Println("Database pinged")
+
 	tc, cacheErr := render.CreateTemplateCache()
 	if cacheErr != nil {
-		return cacheErr
+		return nil, cacheErr
 	}
 
 	app.TemplateCache = tc
 	app.UseCache = false
 
-	repo := handlers.NewRepo(&app)
+	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandlers(repo)
 	render.NewTemplates(&app)
 	helpers.NewHelpers(&app)
 
-	return nil
+	return db, nil
 }
