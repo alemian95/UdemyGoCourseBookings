@@ -40,20 +40,20 @@ func NewHandlers(r *Repository) {
 
 // Home is the home page handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "home.page.tmpl.html", &models.TemplateData{})
+	render.Template(w, r, "home.page.tmpl.html", &models.TemplateData{})
 }
 
 // About is the about page handler
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "about.page.tmpl.html", &models.TemplateData{})
+	render.Template(w, r, "about.page.tmpl.html", &models.TemplateData{})
 }
 
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "contact.page.tmpl.html", &models.TemplateData{})
+	render.Template(w, r, "contact.page.tmpl.html", &models.TemplateData{})
 }
 
 func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "search-availability.page.tmpl.html", &models.TemplateData{})
+	render.Template(w, r, "search-availability.page.tmpl.html", &models.TemplateData{})
 }
 
 func (m *Repository) PostSearchAvailability(w http.ResponseWriter, r *http.Request) {
@@ -92,7 +92,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	data["reservation"] = emptyReservation
 
-	render.RenderTemplate(w, r, "make-reservation.page.tmpl.html", &models.TemplateData{
+	render.Template(w, r, "make-reservation.page.tmpl.html", &models.TemplateData{
 		Form: forms.New(nil),
 		Data: data,
 	})
@@ -123,7 +123,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		data := make(map[string]interface{})
 		data["reservation"] = reservation
 
-		render.RenderTemplate(w, r, "make-reservation.page.tmpl.html", &models.TemplateData{
+		render.Template(w, r, "make-reservation.page.tmpl.html", &models.TemplateData{
 			Form: form,
 			Data: data,
 		})
@@ -148,15 +148,15 @@ func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) 
 	data := make(map[string]interface{})
 	data["reservation"] = reservation
 
-	render.RenderTemplate(w, r, "reservation-summary.page.tmpl.html", &models.TemplateData{
+	render.Template(w, r, "reservation-summary.page.tmpl.html", &models.TemplateData{
 		Data: data,
 	})
 }
 
 func (m *Repository) RoomsMajorsSuite(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "majors-suite.page.tmpl.html", &models.TemplateData{})
+	render.Template(w, r, "majors-suite.page.tmpl.html", &models.TemplateData{})
 }
 
 func (m *Repository) RoomsGeneralsQuarters(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "generals-quarters.page.tmpl.html", &models.TemplateData{})
+	render.Template(w, r, "generals-quarters.page.tmpl.html", &models.TemplateData{})
 }
