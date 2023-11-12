@@ -71,7 +71,7 @@ func run() (*driver.DB, error) {
 
 	// connect to database
 	log.Println("Connecting to database...")
-	db, err := driver.ConnectSQL("host=localhost port=5432 database=django_template_db user=example password=example")
+	db, err := driver.ConnectSQL("host=localhost port=5432 database=go_bookings user=example password=example")
 	if err != nil {
 		log.Fatal("Cannot connect to database! Dying...")
 	}
